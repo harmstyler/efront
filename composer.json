@@ -4,6 +4,10 @@
     "license": "gpl-2.0",
     "authors": [
         {
+            "name": "Vasileios Prountzos",
+            "email": "prountzos@efrontlearning.net"
+        },
+        {
             "name": "Tyler Harms",
             "email": "tyler.harms@gmail.com"
         }
