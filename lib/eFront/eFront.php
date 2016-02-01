@@ -30,12 +30,10 @@ class eFront
     public function setDomain($domain)
     {
         $domain = trim($domain, "/");
-        $domain = str_replace('http://', '', $domain);
-        $domain = str_replace('https://', '', $domain);
+        $domain = str_replace(['http://', 'https://'], '', $domain);
 
         $this->domain = 'http://' . $domain;
-        $pos = strrpos($this->domain, '/');
-        $this->apiBase = substr($this->domain, 0, $pos) . '/api2.php';
+        $this->apiBase = $this->domain . '/api2.php';
     }
 
     /**
