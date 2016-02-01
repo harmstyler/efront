@@ -1,0 +1,18 @@
+{
+    "name": "harmstyler/efront",
+    "description": "A php library for interfacing with the eFront Learning API",
+    "license": "gpl-2.0",
+    "authors": [
+        {
+            "name": "Tyler Harms",
+            "email": "tyler.harms@gmail.com"
+        }
+    ],
+    "keywords": ["efront", "efront learning", "efrontlearning.net"],
+    "require": {
+        "php": ">=5.5.0"
+    },
+    "autoload": {
+      "psr-4": { "eFront\\": "lib/eFront/"}
+    }
+}
