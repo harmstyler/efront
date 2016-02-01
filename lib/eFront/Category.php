@@ -18,16 +18,11 @@ class Category extends eFront
      * @link
      * @param string $token token to communicate with the XML API module
      * @return SimpleXMLElement Object general information about a category
-     * @throws ApiError
      */
     public function getCategories($token)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=categories" . "&token=" . $token);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=categories" . "&token=" . $token);
+        return $xml_response;
     }
 
     /**
@@ -37,17 +32,12 @@ class Category extends eFront
      *
      * @link
      * @param string $token token to communicate with the XML API module
-     * @param int $category the category id of the corresponding category
+     * @param int $category_id the category id of the corresponding category
      * @return SimpleXMLElement Object general information about a category
-     * @throws ApiError
      */
     public function getCategory($token, $category_id)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=category" . "&token=" . $token . "&category=" . $category_id);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=category" . "&token=" . $token . "&category=" . $category_id);
+        return $xml_response;
     }
 }

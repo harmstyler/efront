@@ -44,16 +44,26 @@ class eFront
      * For a third-party application to use the XML API module, is necessary to identify itself and log into the system. For security reasons, the XML API module utilizes a token approach. Whenever an application wants to communicate with the XML API module, it requests a token from the module. This token will be utilized through all the following requests, until it expires after 30minutes or the application explicitly logs out of the module. The generated tokens have a length of 30-chars and are stored along with their status (unlogged,logged) in the system's database.
      *
      * @link http://docs.efrontlearning.net/index.php/XML_API2#Token_Request
-     * @return string|ApiError
-     * @throws ApiError
+     * @return string
      */
     public function requestToken()
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=token");
+        $xml_response = $this->buildResponse($this->apiBase . "?action=token");
+        return $xml_response->token;
+    }
+
+    /**
+     * @param string $uri
+     * @return string|ApiError
+     * @throws ApiError
+     */
+    protected function buildResponse($uri)
+    {
+        $xml_response = simplexml_load_file($uri);
         if ($xml_response->status == 'error') {
             throw new ApiError($xml_response->message);
         } else {
-            return $xml_response->token;
+            return $xml_response;
         }
     }
 
@@ -66,17 +76,12 @@ class eFront
      * @param string $token token to communicate with the XML API module
      * @param string $username the username of the corresponding user
      * @param string $password the password of the corresponding user
-     * @return string|ApiError
-     * @throws ApiError
+     * @return string
      */
     public function loginModule($token, $username, $password)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=login" . "&token=" . $token . "&username=" . urlencode($username) . "&password=" . urlencode($password));
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response->status;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=login" . "&token=" . $token . "&username=" . urlencode($username) . "&password=" . urlencode($password));
+        return $xml_response->status;
     }
 
     /**
@@ -87,34 +92,24 @@ class eFront
      * @link http://docs.efrontlearning.net/index.php/XML_API2#Log-in_into_platform_(eFront)
      * @param string $token token to communicate with the XML API module
      * @param string $login the login of the corresponding user
-     * @return string|ApiError
-     * @throws ApiError
+     * @return string
      */
     public function login($token, $login)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=efrontlogin" . "&token=" . $token . "&login=" . $login);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response->status;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=efrontlogin" . "&token=" . $token . "&login=" . $login);
+        return $xml_response->status;
     }
 
     /**
      * @param $token
      * @param $login
      * @param $password
-     * @return \SimpleXMLElement[]
-     * @throws ApiError
+     * @return SimpleXMLElement[]
      */
     public function checkPassword($token, $login, $password)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=checkpassword" . "&token=" . $token . "&login=" . $login . "&password=" . $password);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response->status;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=checkpassword" . "&token=" . $token . "&login=" . $login . "&password=" . $password);
+        return $xml_response->status;
     }
 
 
@@ -126,17 +121,12 @@ class eFront
      * @link http://docs.efrontlearning.net/index.php/XML_API2#Log-in_into_platform_(eFront)
      * @param string $token token to communicate with the XML API module
      * @param string $login the login of the corresponding user
-     * @return string|ApiError
-     * @throws ApiError
+     * @return string
      */
     public function logout($token, $login)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=efrontlogout" . "&token=" . $token . "&login=" . $login);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response->status;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=efrontlogout" . "&token=" . $token . "&login=" . $login);
+        return $xml_response->status;
     }
 
     /**
@@ -146,17 +136,12 @@ class eFront
      *
      * @link http://docs.efrontlearning.net/index.php/XML_API2#Logout_from_module_(API)
      * @param string $token token to communicate with the XML API module
-     * @return string|ApiError
-     * @throws ApiError
+     * @return string
      */
     public function logoutModule($token)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=logout" . "&token=" . $token);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response->status;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=logout" . "&token=" . $token);
+        return $xml_response->status;
     }
 
     /**
@@ -167,30 +152,20 @@ class eFront
      * @link http://docs.efrontlearning.net/index.php/XML_API2#Catalog
      * @param string $token token to communicate with the XML API module
      * @return SimpleXMLElement Object
-     * @throws ApiError
      */
     public function catalog($token)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=catalog" . "&token=" . $token);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response->status;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=catalog" . "&token=" . $token);
+        return $xml_response->status;
     }
 
     /**
      * @param $token
      * @return SimpleXMLElement
-     * @throws ApiError
      */
     public function languages($token)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=languages" . "&token=" . $token);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=languages" . "&token=" . $token);
+        return $xml_response;
     }
 }

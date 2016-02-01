@@ -18,16 +18,11 @@ class User extends eFront
      * @link
      * @param string $token token to communicate with the XML API module
      * @return SimpleXMLElement Object a list of all users in eFront
-     * @throws ApiError
      */
     public function getUsers($token)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=users" . "&token=" . $token);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=users" . "&token=" . $token);
+        return $xml_response;
     }
 
     /**
@@ -39,16 +34,11 @@ class User extends eFront
      * @param string $token token to communicate with the XML API module
      * @param string $login the login of the corresponding user
      * @return SimpleXMLElement Object general information about a user
-     * @throws ApiError
      */
     public function getInfo($token, $login)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=user_info" . "&token=" . $token . "&login=" . $login);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=user_info" . "&token=" . $token . "&login=" . $login);
+        return $xml_response;
     }
 
     /**
@@ -64,17 +54,12 @@ class User extends eFront
      * @param string $surname the surname of the corresponding new user
      * @param string $languages the languages of the corresponding new user
      * @param string $email the email of the corresponding new user
-     * @return string|ApiError
-     * @throws ApiError
+     * @return string
      */
     public function createUser($token, $login, $password, $name, $surname, $languages, $email)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=create_user" . "&token=" . $token . "&login=" . $login . "&password=" . $password . "&name=" . $name . "&surname=" . $surname . "&languages=" . $languages . "&email=" . $email);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response->status;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=create_user" . "&token=" . $token . "&login=" . $login . "&password=" . $password . "&name=" . $name . "&surname=" . $surname . "&languages=" . $languages . "&email=" . $email);
+        return $xml_response->status;
     }
 
     /**
@@ -90,18 +75,12 @@ class User extends eFront
      * @param string $name the name of the corresponding user
      * @param string $surname the surname of the corresponding user
      * @param string $email the email of the corresponding user
-     *
-     * @return string|ApiError
-     * @throws ApiError
+     * @return string
      */
     public function updateUser($token, $login, $password, $name, $surname, $email)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=update_user" . "&token=" . $token . "&login=" . $login . "&password=" . $password . "&name=" . $name . "&surname=" . $surname . "&email=" . $email);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response->status;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=update_user" . "&token=" . $token . "&login=" . $login . "&password=" . $password . "&name=" . $name . "&surname=" . $surname . "&email=" . $email);
+        return $xml_response->status;
     }
 
     /**
@@ -112,17 +91,12 @@ class User extends eFront
      * @link http://docs.efrontlearning.net/index.php/XML_API2#Activate_a_user
      * @param string $token token to communicate with the XML API module
      * @param string $login the login of the corresponding user
-     * @return string|ApiError
-     * @throws ApiError
+     * @return string
      */
     public function activateUser($token, $login)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=activate_user" . "&token=" . $token . "&login=" . $login);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response->status;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=activate_user" . "&token=" . $token . "&login=" . $login);
+        return $xml_response->status;
     }
 
     /**
@@ -133,17 +107,12 @@ class User extends eFront
      * @link http://docs.efrontlearning.net/index.php/XML_API2#Deactivate_a_user
      * @param string $token token to communicate with the XML API module
      * @param string $login the login of the corresponding user
-     * @return string|ApiError
-     * @throws ApiError
+     * @return string
      */
     public function deactivateUser($token, $login)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=deactivate_user" . "&token=" . $token . "&login=" . $login);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response->status;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=deactivate_user" . "&token=" . $token . "&login=" . $login);
+        return $xml_response->status;
     }
 
     /**
@@ -154,17 +123,12 @@ class User extends eFront
      * @link http://docs.efrontlearning.net/index.php/XML_API2#Remove_an_existing_user
      * @param string $token token to communicate with the XML API module
      * @param string $login the login of the corresponding user
-     * @return string|ApiError
-     * @throws ApiError
+     * @return string
      */
     public function removeUser($token, $login)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=remove_user" . "&token=" . $token . "&login=" . $login);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response->status;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=remove_user" . "&token=" . $token . "&login=" . $login);
+        return $xml_response->status;
     }
 
     /**
@@ -175,17 +139,12 @@ class User extends eFront
      * @link http://docs.efrontlearning.net/index.php/XML_API2#User_lessons
      * @param string $token token to communicate with the XML API module
      * @param string $login the login of the corresponding user
-     * @return string|ApiError
-     * @throws ApiError
+     * @return string
      */
     public function getUserLessons($token, $login)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=user_lessons" . "&token=" . $token . "&login=" . $login);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=user_lessons" . "&token=" . $token . "&login=" . $login);
+        return $xml_response;
     }
 
     /**
@@ -196,17 +155,12 @@ class User extends eFront
      * @link http://docs.efrontlearning.net/index.php/XML_API2#User_courses
      * @param string $token token to communicate with the XML API module
      * @param string $login the login of the corresponding user
-     * @return string|ApiError
-     * @throws ApiError
+     * @return string
      */
     public function getUserCourses($token, $login)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=user_courses" . "&token=" . $token . "&login=" . $login);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=user_courses" . "&token=" . $token . "&login=" . $login);
+        return $xml_response;
     }
 
     /**
@@ -218,17 +172,12 @@ class User extends eFront
      * @param string $token token to communicate with the XML API module
      * @param string $login the login of the corresponding user
      * @param int $curriculum the course id of the corresponding course
-     * @return string|ApiError
-     * @throws ApiError
+     * @return string
      */
     public function assignCurriculum($token, $login, $curriculum)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=curriculum_to_user" . "&token=" . $token . "&login=" . $login . "&curriculum=" . $curriculum);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response->status;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=curriculum_to_user" . "&token=" . $token . "&login=" . $login . "&curriculum=" . $curriculum);
+        return $xml_response->status;
     }
 
     /**
@@ -239,17 +188,12 @@ class User extends eFront
      * @link
      * @param string $token token to communicate with the XML API module
      * @param string $login the login of the corresponding user
-     * @return string|ApiError the user's autologin key
-     * @throws ApiError
+     * @return string the user's autologin key
      */
     public function getAutologinKey($token, $login, $password)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=get_user_autologin_key" . "&token=" . $token . "&login=" . $login . "&password=" . $password);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=get_user_autologin_key" . "&token=" . $token . "&login=" . $login . "&password=" . $password);
+        return $xml_response;
     }
 
     /**
@@ -260,16 +204,11 @@ class User extends eFront
      * @link
      * @param string $token token to communicate with the XML API module
      * @param string $login the login of the corresponding user
-     * @return string|ApiError the user's autologin key
-     * @throws ApiError
+     * @return string the user's autologin key
      */
     public function setAutologinKey($token, $login)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=set_user_autologin_key" . "&token=" . $token . "&login=" . $login);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=set_user_autologin_key" . "&token=" . $token . "&login=" . $login);
+        return $xml_response;
     }
 }

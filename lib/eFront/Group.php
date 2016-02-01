@@ -19,16 +19,11 @@ class Group extends eFront
      * @param string $token token to communicate with the XML API module
      * @param int $group the group id of the corresponding group
      * @return SimpleXMLElement Object general information about a group
-     * @throws ApiError
      */
     public function getInfo($token, $group)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=group_info" . "&token=" . $token . "&group=" . $group);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=group_info" . "&token=" . $token . "&group=" . $group);
+        return $xml_response;
     }
 
     /**
@@ -40,17 +35,12 @@ class Group extends eFront
      * @param string $token token to communicate with the XML API module
      * @param string $login the login of the corresponding user
      * @param int $group the group id of the corresponding group
-     * @return string|ApiError
-     * @throws ApiError
+     * @return string
      */
     public function assignUserToGroup($token, $login, $group)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=group_to_user" . "&token=" . $token . "&login=" . $login . "&group=" . $group);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response->status;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=group_to_user" . "&token=" . $token . "&login=" . $login . "&group=" . $group);
+        return $xml_response->status;
     }
 
     /**
@@ -62,16 +52,11 @@ class Group extends eFront
      * @param string $token token to communicate with the XML API module
      * @param string $login the login of the corresponding user
      * @param int $group the group id of the corresponding group
-     * @return string|ApiError
-     * @throws ApiError
+     * @return string
      */
     public function removeUserFromGroup($token, $login, $group)
     {
-        $xml_response = simplexml_load_file($this->apiBase . "?action=group_from_user" . "&token=" . $token . "&login=" . $login . "&group=" . $group);
-        if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
-        } else {
-            return $xml_response->status;
-        }
+        $xml_response = $this->buildResponse($this->apiBase . "?action=group_from_user" . "&token=" . $token . "&login=" . $login . "&group=" . $group);
+        return $xml_response->status;
     }
 }
