@@ -2,7 +2,10 @@
 
 namespace eFront;
 
+use eFront\Exception\ApiError;
+use eFront\Exception\ClientException;
 use SimpleXMLElement;
+use eFront\Exception\ExceptionFactory;
 
 /**
  * Class eFront
@@ -57,9 +60,14 @@ class eFront
      */
     protected function buildResponse($uri)
     {
-        $xml_response = simplexml_load_file($uri);
+        try {
+            $xml_response = simplexml_load_file($uri);
+        } catch (\Exception $e) {
+            // in case the eFront app has a bug
+            throw new ClientException($e->getMessage(), $e);
+        }
         if ($xml_response->status == 'error') {
-            throw new ApiError($xml_response->message);
+            throw ExceptionFactory::make($xml_response->message);
         } else {
             return $xml_response;
         }

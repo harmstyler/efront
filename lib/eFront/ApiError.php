@@ -2,11 +2,14 @@
 
 namespace eFront;
 
+use eFront\Exception\ApiError as BaseError;
+
 /**
  * Class ApiError
  * @package eFront
+ * @deprecated To be removed in 2.0, use \eFront\Exception\ApiError
  */
-class ApiError extends \Exception
+class ApiError extends BaseError
 {
     /**
      * ApiError constructor.
