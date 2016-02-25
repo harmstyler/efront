@@ -24,6 +24,20 @@ class eFront
     public $apiBase;
 
     /**
+     * @var bool
+     */
+    private $isSecure;
+
+    /**
+     * eFront constructor.
+     * @param bool $isSecure
+     */
+    public function __construct($isSecure = false)
+    {
+        $this->isSecure = $isSecure;
+    }
+
+    /**
      * Set domain
      *
      * Initialize library with an eFront domain
@@ -35,7 +49,12 @@ class eFront
         $domain = trim($domain, "/");
         $domain = str_replace(['http://', 'https://'], '', $domain);
 
-        $this->domain = 'http://' . $domain;
+        if ($this->isSecure) {
+            $this->domain = 'https://' . $domain;
+        } else {
+            $this->domain = 'http://' . $domain;
+        }
+
         $this->apiBase = $this->domain . '/api2.php';
     }
 
