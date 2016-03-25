@@ -186,11 +186,12 @@ class eFront
 
     /**
      * @param $token
-     * @return SimpleXMLElement
+     * @return SimpleXMLIterator
      */
     public function languages($token)
     {
         $xml_response = $this->buildResponse($this->apiBase . "?action=languages" . "&token=" . $token);
-        return $xml_response;
+        $iterableResponse = new SimpleXMLIterator($xml_response->saveXML());
+        return $iterableResponse;
     }
 }
