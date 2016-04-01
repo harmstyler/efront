@@ -5,6 +5,7 @@ namespace eFront;
 use eFront\Exception\ApiError;
 use eFront\Exception\ClientException;
 use SimpleXMLElement;
+use SimpleXMLIterator;
 use eFront\Exception\ExceptionFactory;
 
 /**
