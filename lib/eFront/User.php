@@ -54,11 +54,16 @@ class User extends eFront
      * @param string $surname the surname of the corresponding new user
      * @param string $languages the languages of the corresponding new user
      * @param string $email the email of the corresponding new user
+     * @param string $user_type the the type of user to create
      * @return string
      */
-    public function createUser($token, $login, $password, $name, $surname, $languages, $email)
+    public function createUser($token, $login, $password, $name, $surname, $languages, $email, $user_type = '')
     {
-        $xml_response = $this->buildResponse($this->apiBase . "?action=create_user" . "&token=" . $token . "&login=" . $login . "&password=" . $password . "&name=" . $name . "&surname=" . $surname . "&languages=" . $languages . "&email=" . $email);
+        $uri = $this->apiBase . "?action=create_user" . "&token=" . $token . "&login=" . $login . "&password=" . $password . "&name=" . $name . "&surname=" . $surname . "&languages=" . $languages . "&email=" . $email;
+        if (!empty($user_type)) {
+            $uri .= "&user_type=" . $user_type;
+        }
+        $xml_response = $this->buildResponse($uri);
         return $xml_response->status;
     }
 
