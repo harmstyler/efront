@@ -59,7 +59,7 @@ class User extends eFront
      */
     public function createUser($token, $login, $password, $name, $surname, $languages, $email, $user_type = '')
     {
-        $uri = $this->apiBase . "?action=create_user" . "&token=" . $token . "&login=" . $login . "&password=" . $password . "&name=" . $name . "&surname=" . $surname . "&languages=" . $languages . "&email=" . $email;
+        $uri = $this->apiBase . "?action=create_user" . "&token=" . $token . "&login=" . $login . "&password=" . $password . "&name=" . $name . "&surname=" . $surname . "&languages=" . urlencode($languages) . "&email=" . urlencode($email);
         if (!empty($user_type)) {
             $uri .= "&user_type=" . $user_type;
         }
@@ -84,7 +84,7 @@ class User extends eFront
      */
     public function updateUser($token, $login, $password, $name, $surname, $email)
     {
-        $xml_response = $this->buildResponse($this->apiBase . "?action=update_user" . "&token=" . $token . "&login=" . $login . "&password=" . $password . "&name=" . $name . "&surname=" . $surname . "&email=" . $email);
+        $xml_response = $this->buildResponse($this->apiBase . "?action=update_user" . "&token=" . $token . "&login=" . $login . "&password=" . $password . "&name=" . $name . "&surname=" . $surname . "&email=" . urlencode($email));
         return $xml_response->status;
     }
 
