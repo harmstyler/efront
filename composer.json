@@ -12,11 +12,18 @@
             "email": "tyler.harms@gmail.com"
         }
     ],
-    "keywords": ["efront", "efront learning", "efrontlearning.net"],
+    "keywords": [
+        "efront",
+        "efront learning",
+        "efrontlearning.net",
+        "eFront XML API2"
+    ],
     "require": {
         "php": ">=5.5.0"
     },
     "autoload": {
-      "psr-4": { "eFront\\": "lib/eFront/"}
+        "psr-4": {
+            "eFront\\": "lib/eFront/"
+        }
     }
 }
