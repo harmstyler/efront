@@ -44,6 +44,13 @@ class ExceptionFactory
                 return new MaxUsersException($errorMessage);
             case "Invalid language":
                 return new InvalidLanguageException($errorMessage);
+            case "Invalid job id":
+            case "Invalid job description":
+                return new JobException($errorMessage);
+            case "This branch does not exist":
+            case "Invalid branch id":
+            case "Invalid position":
+                return new BranchException($errorMessage);
             case "Invalid category":
             case "Category does not exit":
                 return new CategoryException($errorMessage);
