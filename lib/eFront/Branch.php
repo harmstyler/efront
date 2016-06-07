@@ -81,7 +81,8 @@ class Branch extends eFront
         }
 
         $xml_response = $this->buildResponse($requestUrl);
+        $iterableResponse = new SimpleXMLIterator($xml_response->saveXML());
 
-        return $xml_response;
+        return $iterableResponse->jobs;
     }
 }
