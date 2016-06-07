@@ -24,10 +24,10 @@ class Branch extends eFront
      * @param int    $positionId     The Position Id (0 for user, 1 for supervisor)
      * @param string $jobDescription
      *
-     * @return SimpleXMLElement
-     *
      * @throws Exception\ApiError
      * @throws Exception\ClientException
+     *
+     * @return SimpleXMLElement
      */
     public function assignUserToBranch($token, $login, $branchId, $jobId, $positionId, $jobDescription)
     {
@@ -54,11 +54,11 @@ class Branch extends eFront
      * @param null|int    $positionId     The Position Id (0 for user, 1 for supervisor)
      * @param null|string $jobDescription
      *
-     * @return Exception\ApiError|string
-     *
      * @throws BadRequestException
      * @throws Exception\ApiError
      * @throws Exception\ClientException
+     *
+     * @return Exception\ApiError|string
      */
     public function getBranchJobs($token, $login, $branchId, $jobId = null, $positionId = null, $jobDescription = null)
     {
