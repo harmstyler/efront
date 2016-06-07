@@ -6,6 +6,7 @@ use eFront\Exception\BadRequestException;
 use eFront\Exception\BranchException;
 use eFront\Exception\JobException;
 use SimpleXMLElement;
+use SimpleXMLIterator;
 
 /**
  * Class Branch.
